@@ -26,33 +26,42 @@
 	<div class="row">
 		<div class="large-8 columns">
 			<h3>lista de contactos</h3>
-
+			<?php
+				include("../php/Mysql.class.php");
+				include("../php/Contacto.class.php");
+				
+				$Contacto = new Contacto();
+				$contactos = $Contacto->consulta_contactos();
+			?>
 			
-			<div class="row">
+		
+		<?php foreach($contactos as $row){ ?>
+			<div data-alert class="row alert-box secondary">
+					
 				<div class="large-6 columns">
 					<div class="panel">
 						<p>foto contacto</p>
+						<p><?php echo $row['Foto']; ?></p>
 					</div>
 				</div>
 				<div class="large-6 columns">
 					<div class="panel">
-						<p>datos del contacto</p>
+						<p><?php echo $row['Nombre']; ?></p>
+						<p><?php echo $row['Telefono']; ?></p>
+						<p><?php echo $row['E-mail']; ?></p>
 					</div>
 				</div>
+							
+				<a href="#" class="close">&times;</a>
 			</div>
+		<?php } ?>
+						
 			
-			<div class="row">
-				<div class="large-6 columns">
-					<div class="panel">
-						<p>foto contacto</p>
-					</div>
-				</div>
-				<div class="large-6 columns">
-					<div class="panel">
-						<p>datos del contacto</p>
-					</div>
-				</div>
-			</div>
+			
+			
+		
+			
+		
 			
 
 
@@ -64,6 +73,9 @@
 			<div class="panel">
 				<h4>formulario</h4>
 				<p>.......</p>
+				<?php 
+					include('../formularios/_form_contacto.php')
+				?>
 			</div>
 		</div>
 	</div>
