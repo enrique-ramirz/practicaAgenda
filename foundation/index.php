@@ -31,6 +31,13 @@
 				include("../php/Contacto.class.php");
 				
 				$Contacto = new Contacto();
+				
+				$Contacto->set_nombre = $_GET['nombre'];
+				$Contacto->set_email = $_GET['email'];
+			
+				$Contacto->guarda();
+				
+				
 				$contactos = $Contacto->consulta_contactos();
 			?>
 			
@@ -57,9 +64,16 @@
 		<?php } ?>
 						
 			
-			
-			
+		<h1>GET</h1>	
+		<pre>	
+		<?php
 		
+			print_r($_GET);
+			
+			
+			
+		?>
+		</pre>
 			
 		
 			

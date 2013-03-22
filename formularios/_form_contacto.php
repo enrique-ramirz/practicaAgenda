@@ -1,4 +1,4 @@
-	<form action="index.html" method="GET">
+	<form action="" method="GET">
 		
 		<div class="row">
 			<label for="nombre">Nombre:</label><br/>

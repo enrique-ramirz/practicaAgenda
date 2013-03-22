@@ -22,6 +22,20 @@ class Mysql{
 		return $resultado;
 	}
 	
+	
+	public function mysql_insert($tabla,$inserts){
+	
+	    $values = array_values($inserts);
+		$keys = array_keys($inserts);
+		
+		$sql = 'INSERT INTO `'.$tabla.'` 
+		(`'.implode('`,`', $keys).'`) VALUES 
+		(\''.implode('\',\'', $values).'\')';
+				
+		return mysql_query($sql) or die("error al guardar");
+		
+	}
+	
 	public function fetch_array($consulta){
 		return mysql_fetch_array($consulta);
 	}
