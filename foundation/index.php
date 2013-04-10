@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 8]> 				 
+<html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-
 <head>
-	<meta charset="utf-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <title>Foundation 4</title>
+  <title>Agenda </title>
 
   <link rel="stylesheet" href="css/normalize.css" />
   
@@ -32,11 +32,12 @@
 				
 				$Contacto = new Contacto();
 				
-				$Contacto->set_nombre = $_GET['nombre'];
-				$Contacto->set_email = $_GET['email'];
-			
-				$Contacto->guarda();
-				
+				$Contacto->set_nombre($_GET['nombre']);
+				$Contacto->set_email($_GET['email']);
+                                
+                                if(isset($_GET['nombre'])){
+                                    $Contacto->guarda();
+                                }
 				
 				$contactos = $Contacto->consulta_contactos();
 			?>
