@@ -25,60 +25,55 @@
 
 	<div class="row">
 		<div class="large-8 columns">
-			<h3>lista de contactos</h3>
+			<h3>lista de usuarios</h3>
 			<?php
 				include("../php/Mysql.class.php");
-				include("../php/Contacto.class.php");
+				include("../php/Usuario.class.php");
 				
-				$Contacto = new Contacto();
-				$Contacto->set_nombre($_GET['nombre']);
-				$Contacto->set_email($_GET['email']);
+				$Usuario = new Usuario();
+				
+				$Usuario->set_nombre($_POST['nombre']);
+				$Usuario->set_email($_POST['email']);
+				$Usuario->set_password($_POST['password']);
+				$Usuario->set_valido($_POST['valido']);
                                 
-				if(isset($_GET['nombre'])){
-					$Contacto->guarda();
+				if(isset($_POST['nombre'])){
+					$Usuario->guarda();
 				}
 
 				
-				$contactos = $Contacto->consulta_contactos();
-				
-				$numero_registros = $Contacto->num_rows($Contacto->consulta("SELECT * FROM  `contactos` "));
-				
+				$usuarios = $Usuario->consulta_datos();
 			?>
 			
 		
 		<?php 
+		$numero_registros = $Usuario->num_rows($Usuario->consulta("SELECT * FROM  `usuario` "));
 		if($numero_registros > 0){
-			foreach($contactos as $row){ ?>
+			foreach($usuarios as $row){ ?>
 				<div data-alert class="row alert-box secondary">
 						
 					<div class="large-6 columns">
 						<div class="panel">
-							<p>foto contacto</p>
-							<p><?php echo $row['Foto']; ?></p>
-						</div>
-					</div>
-					<div class="large-6 columns">
-						<div class="panel">
-							<p><?php echo $row['Nombre']; ?></p>
-							<p><?php echo $row['Telefono']; ?></p>
-							<p><?php echo $row['E-mail']; ?></p>
+							<p><?php echo $row['nombre']; ?></p>
+							<p><?php echo $row['email']; ?></p>
+							<p><?php echo $row['password']; ?></p>
 						</div>
 					</div>
 								
 					<a href="#" class="close">&times;</a>
 				</div>
-			<?php } 
-			}else{
-				echo "No hay registros en la tabla";
-			}
-			?>
+			<?php }
+		}else{
+			echo "No hay registros en la tabla";
+		}		
+		?>
 						
 			
-		<h1>GET</h1>	
+		<h1>POST</h1>	
 		<pre>	
 		<?php
 		
-			print_r($_GET);
+			print_r($_POST);
 			
 			
 			
@@ -98,7 +93,7 @@
 				<h4>formulario</h4>
 				<p>.......</p>
 				<?php 
-					include('../formularios/_form_contacto.php')
+					include('../formularios/_form_usuarios.php')
 				?>
 			</div>
 		</div>
