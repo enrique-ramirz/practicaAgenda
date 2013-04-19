@@ -1,7 +1,7 @@
 <?php 
 class Contacto extends MySQL{
 	private $nombre; 
-	private $email;
+	public $email;
 	public function consulta_contactos(){
 		$consulta = $this->consulta("SELECT * FROM contactos;");
 		if($this->num_rows($consulta)>0){
@@ -14,25 +14,24 @@ class Contacto extends MySQL{
 	}
 	
 	public function guarda(){
-	
 		
 		$this->mysql_insert('contactos',
-							array(
-								  'id_contacto'=>'NULL',
-								  'Nombre'=>'nombre '.$this->nombre,
-								  'E-mail'=>'email'.$this->email,
-								  'Telefono'=>'email', 
-		                          'E-mail'=>'email',
-								  'Web'=>'email',
-								  'Fecha de nacimiento'=>'2013-03-29',
-								  'Sexo'=>'email',
-								  'Comentarios'=>'email',
-								  'Tipo'=>'email',
-								  'Foto'=>'email',
-								  'Estado'=>'email'
+				array(
+				  'id_contacto'=>'NULL',
+				  'Nombre'=>$this->nombre,
+				  'E-mail'=>$this->email,
+				  'Telefono'=>'email', 
+				  'E-mail'=>'email',
+				  'Web'=>'email',
+				  'Fecha de nacimiento'=>'2013-03-29',
+				  'Sexo'=>'email',
+				  'Comentarios'=>'email',
+				  'Tipo'=>'email',
+				  'Foto'=>'email',
+				  'Estado'=>'email'
 
-								)
-						   );
+					)
+			   );
 	}
 	
 	public function get_nombre(){

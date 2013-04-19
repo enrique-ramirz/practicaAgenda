@@ -32,10 +32,17 @@
 				
 				$Contacto = new Contacto();
 				
-				$Contacto->set_nombre = $_GET['nombre'];
-				$Contacto->set_email = $_GET['email'];
-			
-				$Contacto->guarda();
+				if(isset($_GET['nombre'])){
+					echo $_GET['nombre'];
+					$Contacto->set_nombre = $_GET['nombre'];
+					$Contacto->set_email = $_GET['email'];
+					
+					die($Contacto->get_email);
+					
+					$Contacto->guarda();
+				}
+				
+				
 				
 				
 				$contactos = $Contacto->consulta_contactos();
