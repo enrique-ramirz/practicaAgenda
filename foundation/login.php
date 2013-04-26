@@ -1,8 +1,3 @@
-<?php
-include("../php/seguridad.php");
-
-?>
-
 <!DOCTYPE html>
 <!--[if IE 8]> 				 
 <html class="no-js lt-ie9" lang="en"> <![endif]-->
@@ -10,7 +5,7 @@ include("../php/seguridad.php");
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <title>Agenda </title>
+  <title>login </title>
 
   <link rel="stylesheet" href="css/normalize.css" />
   
@@ -30,62 +25,28 @@ include("../php/seguridad.php");
 
 	<div class="row">
 		<div class="large-8 columns">
-			<h3>lista de usuarios</h3>
+			<h3>login</h3>
 			<?php
 				include("../php/Mysql.class.php");
-				include("../php/Usuario.class.php");
+				include("../php/login.class.php");
 				
-				$Usuario = new Usuario();
+				$login = new login();
 				
-				$Usuario->set_nombre($_POST['nombre']);
-				$Usuario->set_email($_POST['email']);
-				$Usuario->set_password($_POST['password']);
-				$Usuario->set_valido($_POST['valido']);
-                                
-				if(isset($_POST['nombre'])){
-					$Usuario->guarda();
-				}
-
+				print_r($_POST);
 				
-				$usuarios = $Usuario->consulta_datos();
+				$login->set_email($_POST['usuario']);
+				$login->set_password($_POST['password']);
+				
+				echo $login->get_email();
+                              
+								
+				echo $login->consultar_usuario();
+				
 			?>
 			
 		
-		<?php 
-		$numero_registros = $Usuario->num_rows($Usuario->consulta("SELECT * FROM  `usuario` "));
-		if($numero_registros > 0){
-			foreach($usuarios as $row){ ?>
-				<div data-alert class="row alert-box secondary">
-						
-					<div class="large-6 columns">
-						<div class="panel">
-							<p><?php echo $row['nombre']; ?></p>
-							<p><?php echo $row['email']; ?></p>
-							<p><?php echo $row['password']; ?></p>
-						</div>
-					</div>
-								
-					<a href="#" class="close">&times;</a>
-				</div>
-			<?php }
-		}else{
-			echo "No hay registros en la tabla";
-		}		
-		?>
-						
+	
 			
-		<h1>POST</h1>	
-		<pre>	
-		<?php
-		
-			print_r($_POST);
-			
-			
-			
-		?>
-		</pre>
-			
-		
 			
 
 
@@ -98,7 +59,7 @@ include("../php/seguridad.php");
 				<h4>formulario</h4>
 				<p>.......</p>
 				<?php 
-					include('../formularios/_form_usuarios.php')
+					include('../formularios/_form_login.php')
 				?>
 			</div>
 		</div>
