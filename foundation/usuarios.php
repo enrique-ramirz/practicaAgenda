@@ -1,5 +1,11 @@
 <?php
-include("../php/seguridad.php");
+session_start();
+if(isset($_SESSION['usuario'])){
+	echo "Usuario identificado como: ".$_SESSION['usuario'];
+}else{
+	echo "Usuario no identificado";
+	die();
+}
 
 ?>
 

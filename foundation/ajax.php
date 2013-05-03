@@ -11,37 +11,77 @@
   <link rel="stylesheet" href="css/foundation.css" />
   <script src="js/vendor/custom.modernizr.js"></script>
   <script src="js/vendor/jquery.js"></script>
-
+	
+<?php
+		include("../php/Mysql.class.php");
+		include("../php/Contacto.class.php");
+		$Contacto = new Contacto();
+		$contactos = $Contacto->consulta_contactos();
+		$numero_registros = $Contacto->num_rows($Contacto->consulta("SELECT * FROM  `contactos` "));
+?>
+		
 </head>
 <body>
-
-	<div class="row" >
-		<div class="large-12 columns">
-			<h2>Practica ajax</h2>
-                        
-                        <div id="lista_contactos">
-                                <div class="large-4 columns panel">
-                                        mensaje
-                                </div>
-                                <div class="large-4 columns panel">
-                                        mensaje
-                                </div>
-                            <div class="large-4 columns panel">
-                                        mensaje
-                                </div>
-                            <div class="large-4 columns panel">
-                                        mensaje
-                                </div>
-                        </div>
-		</div>
+<div class="row" >
+	<div class="large-12 columns">
+		<h2>Practica ajax</h2>
+     		 <div id="lista_contactos">
+		  <?php 
+				if($numero_registros > 0){
+					foreach($contactos as $row){ ?>
+						<div class="large-4 columns panel">
+							<h2><?php echo $row['Nombre']; ?></h2>
+						</div>
+			<?php 
+					}
+				}
+			?>
+		 </div>
 	</div>
+</div>
   <script src="js/foundation.min.js"></script>
  
   <script>
     $(document).foundation();
     
+	$(window).load(function () {
+      //alert("documento cargado");
+    });
+	   
+	   
     $(document).ready(function() {
-        
+			//alert("documento listo");
+		
+		var numReg = $('#lista_contactos div').size();
+			
+		setInterval(function(){
+						
+			$.ajax({
+			  type:"POST",
+			  url: "../php/ajaxContactos.php?numreg="+numReg,
+			  success: function(msg){
+				$('#lista_contactos').append(msg); 
+				numReg = $('#lista_contactos div').size();
+			  }
+			});
+			
+					
+			
+		},2000);  
+		
+	});
+		
+		
+		
+		/*
+		
+		
+		
+		
+		 $('#lista_contactos').append(msg); 
+		
+		
+		
         setInterval(function(){
                 var num =0;
                 $.ajax({
@@ -59,7 +99,7 @@
    },1000);  
    });
 
-    
+    */
   </script>
 </body>
 </html>

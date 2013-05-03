@@ -22,6 +22,18 @@ class Contacto extends MySQL{
 		return $contactos;
 	}
 	
+	
+	public function consulta_sql($sql){
+		$consulta = $this->consulta($sql);
+		if($this->num_rows($consulta)>0){
+			$contactos = array();
+			while($resultados = $this->fetch_array($consulta)){
+				$contactos[] = $resultados; 
+			}
+		}
+		return $contactos;
+	}
+	
 	public function guarda(){
 
 		$this->mysql_insert('contactos',

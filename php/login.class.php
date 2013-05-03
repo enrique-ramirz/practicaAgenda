@@ -7,34 +7,37 @@ class login extends MySQL{
 
 	
 	public function consultar_usuario(){
-		echo "clase Login";
-		
-		echo "SELECT password FROM
-		".$this->nombre_tabla." where email = ".$this->email;
-		
+				
 		$consulta = mysql_query("SELECT password FROM
 		".$this->nombre_tabla." where email = '".$this->email."' ");
-		
-		echo $this->num_rows($consulta);
-		
+					
 		if($this->num_rows($consulta)>0){
 			
 				$datos = array();
 				while($resultados = $this->fetch_array($consulta)){
 					$datos[] = $resultados; 
 				}
-			
-			
-			print_r($datos);
-			
+								
 			if($datos[0]['password'] == md5($this->password)){
 				return true;
 			}
+		}else{
+			return false;
 		}
 		return false;
 	}
 	
+	public function inicia_session($usuario){
+		$_SESSION['usuario'] = $usuario;
+		header('Location: usuarios.php');
+		exit();
+	}
 	
+	public function cerrar_session($usuario){
+		unset($_SESSION);
+		session_destroy();
+		
+	}
 	
 
 	

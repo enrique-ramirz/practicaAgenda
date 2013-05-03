@@ -1,3 +1,24 @@
+<?php 
+session_start(); 
+			
+include("../php/Mysql.class.php");
+include("../php/login.class.php");
+
+$login = new login();
+if( isset($_POST['usuario'])){
+	$login->set_email($_POST['usuario']);
+	$login->set_password($_POST['password']);
+	if($login->consultar_usuario()){
+		$login->inicia_session($_POST['usuario']);
+		
+	}else{
+		echo "<h1>Usuario incorrecto</h1>";
+	}
+}
+				
+
+?>
+
 <!DOCTYPE html>
 <!--[if IE 8]> 				 
 <html class="no-js lt-ie9" lang="en"> <![endif]-->
@@ -26,38 +47,14 @@
 	<div class="row">
 		<div class="large-8 columns">
 			<h3>login</h3>
-			<?php
-				include("../php/Mysql.class.php");
-				include("../php/login.class.php");
-				
-				$login = new login();
-				
-				print_r($_POST);
-				
-				$login->set_email($_POST['usuario']);
-				$login->set_password($_POST['password']);
-				
-				echo $login->get_email();
-                              
-								
-				echo $login->consultar_usuario();
-				
-			?>
 			
-		
-	
-			
-			
-
-
-			  
 		</div>
 
 		<div class="large-4 columns">
 			
 			<div class="panel">
 				<h4>formulario</h4>
-				<p>.......</p>
+				
 				<?php 
 					include('../formularios/_form_login.php')
 				?>
